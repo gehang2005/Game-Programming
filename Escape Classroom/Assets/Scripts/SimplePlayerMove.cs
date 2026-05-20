@@ -19,6 +19,8 @@ public class SimplePlayerMove : MonoBehaviour
     private CharacterController controller;
     private Animator animator;
     private AudioSource audioSource;
+    private float verticalVelocity = 0f;
+    private const float gravity = -20f;
 
     void Start()
     {
@@ -57,7 +59,8 @@ public class SimplePlayerMove : MonoBehaviour
             Vector3 camRight   = Vector3.Scale(cameraTransform.right,   new Vector3(1, 0, 1)).normalized;
             Vector3 moveDir    = (camForward * z + camRight * x).normalized;
 
-            controller.Move(moveDir * currentSpeed * Time.deltaTime);
+            Vector3 horizontalMove = moveDir * currentSpeed * Time.deltaTime;
+            ApplyGravityAndMove(horizontalMove);
 
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
@@ -76,6 +79,7 @@ public class SimplePlayerMove : MonoBehaviour
         {
             animator.speed = 1f;
             animator.SetFloat("Speed", 0f, 0.05f, Time.deltaTime);
+            ApplyGravityAndMove(Vector3.zero);
         }
 
         // 行走时播放脚步声，静止时停止
@@ -101,5 +105,16 @@ public class SimplePlayerMove : MonoBehaviour
 
             audioSource.pitch = isRunning ? runStepPitch : 1f;
         }
+    }
+
+    void ApplyGravityAndMove(Vector3 horizontalMove)
+    {
+        if (controller.isGrounded)
+            verticalVelocity = -2f; // 保持贴地
+        else
+            verticalVelocity += gravity * Time.deltaTime;
+
+        horizontalMove.y = verticalVelocity * Time.deltaTime;
+        controller.Move(horizontalMove);
     }
 }
