@@ -21,6 +21,10 @@ public class TeleportTrigger : MonoBehaviour
     [Tooltip("传送冷却，防止刚出去又立刻触发另一端。")]
     [Min(0.01f)] public float teleportCooldown = 0.2f;
 
+    [Header("Anomaly")]
+    [Tooltip("每次成功传送后触发一次随机异常显示。")]
+    public ClassroomAnomalyRandomizer anomalyRandomizer;
+
     private static readonly Dictionary<int, float> PlayerCooldownUntil = new Dictionary<int, float>();
 
     private void Reset()
@@ -57,6 +61,9 @@ public class TeleportTrigger : MonoBehaviour
         TeleportPlayer(playerRoot);
         float nextAvailableTime = Time.time + teleportCooldown;
         PlayerCooldownUntil[playerId] = nextAvailableTime;
+
+        if (anomalyRandomizer != null)
+            anomalyRandomizer.ActivateRandomAnomaly();
     }
 
     private void TeleportPlayer(Transform playerRoot)
