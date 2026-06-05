@@ -1,6 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public enum ExitDirection
+{
+    Front,
+    Back
+}
+
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Collider))]
 public class TeleportTrigger : MonoBehaviour
@@ -21,9 +28,11 @@ public class TeleportTrigger : MonoBehaviour
     [Tooltip("传送冷却，防止刚出去又立刻触发另一端。")]
     [Min(0.01f)] public float teleportCooldown = 0.2f;
 
-    [Header("Anomaly")]
-    [Tooltip("每次成功传送后触发一次随机异常显示。")]
-    public ClassroomAnomalyRandomizer anomalyRandomizer;
+    [Header("Rule")]
+    [Tooltip("该触发器代表玩家从哪一侧离开。")]
+    public ExitDirection exitDirection;
+    [Tooltip("全局游戏流程控制器（判定前后门是否正确、进度、通关等）。")]
+    public ClassroomGameFlowController gameFlowController;
 
     private static readonly Dictionary<int, float> PlayerCooldownUntil = new Dictionary<int, float>();
 
@@ -58,12 +67,15 @@ public class TeleportTrigger : MonoBehaviour
         if (PlayerCooldownUntil.TryGetValue(playerId, out float cooldownUntil) && cooldownUntil > Time.time)
             return;
 
+        if (gameFlowController != null && !gameFlowController.TryHandleExitDecision(this, playerRoot))
+            return;
+
         TeleportPlayer(playerRoot);
         float nextAvailableTime = Time.time + teleportCooldown;
         PlayerCooldownUntil[playerId] = nextAvailableTime;
 
-        if (anomalyRandomizer != null)
-            anomalyRandomizer.ActivateRandomAnomaly();
+        if (gameFlowController != null)
+            gameFlowController.OnTeleportCompleted(this, playerRoot);
     }
 
     private void TeleportPlayer(Transform playerRoot)

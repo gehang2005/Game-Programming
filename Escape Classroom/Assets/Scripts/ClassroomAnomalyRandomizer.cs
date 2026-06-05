@@ -20,7 +20,15 @@ public class ClassroomAnomalyRandomizer : MonoBehaviour
     [Tooltip("为 true 时仅收集 anomalyRoot 的直接子物体；为 false 时收集所有后代。建议保持为 true。")]
     public bool onlyDirectChildren = true;
 
-    private readonly HashSet<GameObject> shownAnomalies = new HashSet<GameObject>();
+    [Header("Round Generation")]
+    [Tooltip("每轮生成异常的概率。0=一定无异常，1=一定有异常。")]
+    [Range(0f, 1f)] public float anomalyChance = 0.8f;
+    [Tooltip("避免与上一轮完全相同的异常连续出现。")]
+    public bool avoidImmediateRepeat = true;
+
+    private GameObject lastShownAnomaly;
+
+    public bool HasAnomalyThisRound { get; private set; }
 
     private void OnValidate()
     {
@@ -75,42 +83,72 @@ public class ClassroomAnomalyRandomizer : MonoBehaviour
         RemoveNullAndDuplicateEntries();
     }
 
-    public void ActivateRandomAnomaly()
+    public bool GenerateRoundAnomaly()
     {
         RemoveNullAndDuplicateEntries();
+        HideAllAnomalies();
 
         if (anomalies.Count == 0)
         {
             Debug.LogWarning("ClassroomAnomalyRandomizer: 未配置异常对象。", this);
-            return;
+            HasAnomalyThisRound = false;
+            return false;
         }
 
-        HideAllAnomalies();
+        bool shouldSpawnAnomaly = Random.value < anomalyChance;
+        if (!shouldSpawnAnomaly)
+        {
+            HasAnomalyThisRound = false;
+            return false;
+        }
 
         List<GameObject> candidates = new List<GameObject>();
         for (int i = 0; i < anomalies.Count; i++)
         {
             GameObject anomaly = anomalies[i];
-            if (anomaly != null && !shownAnomalies.Contains(anomaly))
-                candidates.Add(anomaly);
+            if (anomaly == null)
+                continue;
+
+            if (avoidImmediateRepeat && anomalies.Count > 1 && anomaly == lastShownAnomaly)
+                continue;
+
+            candidates.Add(anomaly);
         }
 
         if (candidates.Count == 0)
         {
-            Debug.Log("ClassroomAnomalyRandomizer: 所有异常都已出现过，不再重复。", this);
-            return;
+            for (int i = 0; i < anomalies.Count; i++)
+            {
+                GameObject anomaly = anomalies[i];
+                if (anomaly != null)
+                    candidates.Add(anomaly);
+            }
+        }
+
+        if (candidates.Count == 0)
+        {
+            HasAnomalyThisRound = false;
+            return false;
         }
 
         int index = Random.Range(0, candidates.Count);
         GameObject target = candidates[index];
         target.SetActive(true);
-        shownAnomalies.Add(target);
+        lastShownAnomaly = target;
+        HasAnomalyThisRound = true;
+        return true;
+    }
+
+    [ContextMenu("Generate Round Anomaly")]
+    public void GenerateRoundAnomalyFromMenu()
+    {
+        GenerateRoundAnomaly();
     }
 
     [ContextMenu("Reset Anomaly History")]
     public void ResetAnomalyHistory()
     {
-        shownAnomalies.Clear();
+        lastShownAnomaly = null;
         HideAllAnomalies();
     }
 
@@ -128,8 +166,8 @@ public class ClassroomAnomalyRandomizer : MonoBehaviour
         }
 
         anomalies = clean;
-
-        shownAnomalies.RemoveWhere(item => item == null || !seen.Contains(item));
+        if (lastShownAnomaly != null && !seen.Contains(lastShownAnomaly))
+            lastShownAnomaly = null;
     }
 
     public void HideAllAnomalies()
@@ -139,5 +177,7 @@ public class ClassroomAnomalyRandomizer : MonoBehaviour
             if (anomalies[i] != null)
                 anomalies[i].SetActive(false);
         }
+
+        HasAnomalyThisRound = false;
     }
 }
