@@ -17,6 +17,9 @@ public class ClassroomGameFlowController : MonoBehaviour
 
     private bool gameCleared;
 
+    /// <summary>True once all target periods have been successfully completed.</summary>
+    public bool IsGameCleared => gameCleared;
+
     private void Start()
     {
         currentPeriod = 1;

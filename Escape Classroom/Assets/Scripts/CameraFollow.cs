@@ -5,9 +5,9 @@ public class CameraFollow : MonoBehaviour
     public Transform target;
     public float distance = 5f;
     public float minDistance = 2f;
-    public float maxDistance = 12f;
+    public float maxDistance = 6f;
     public float scrollSpeed = 2f;
-    public float height = 2f;
+    public float height = 1.6f;
     public float mouseRotationSpeed = 3f;
     public float minPitch = -20f;
     public float maxPitch = 60f;
