@@ -133,7 +133,18 @@ public class ClassroomAnomalyRandomizer : MonoBehaviour
 
         int index = Random.Range(0, candidates.Count);
         GameObject target = candidates[index];
-        target.SetActive(true);
+
+        // Use IAnomalyEffect if available (searches self and all children), otherwise fall back to SetActive
+        var effects = target.GetComponentsInChildren<IAnomalyEffect>();
+        if (effects.Length > 0)
+        {
+            foreach (var e in effects) e.Activate();
+        }
+        else
+        {
+            target.SetActive(true);
+        }
+
         lastShownAnomaly = target;
         HasAnomalyThisRound = true;
         return true;
@@ -174,8 +185,17 @@ public class ClassroomAnomalyRandomizer : MonoBehaviour
     {
         for (int i = 0; i < anomalies.Count; i++)
         {
-            if (anomalies[i] != null)
+            if (anomalies[i] == null) continue;
+
+            var effects = anomalies[i].GetComponentsInChildren<IAnomalyEffect>();
+            if (effects.Length > 0)
+            {
+                foreach (var e in effects) e.Deactivate();
+            }
+            else
+            {
                 anomalies[i].SetActive(false);
+            }
         }
 
         HasAnomalyThisRound = false;
