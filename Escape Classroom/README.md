@@ -96,16 +96,17 @@ Each round has roughly a **90%** chance of spawning an anomaly and a **10%** cha
 ```
 Escape Classroom/
 ├── Assets/
+│   ├── Broadcast/
+│   │   └── Assets/             # Anomaly resources, props, textures, materials, audio
+│   ├── Character/              # Player character model & animations
+│   ├── Classroom/              # Classroom environment model & materials
+│   ├── Office Tile Kit/        # Office/corridor environment kit
+│   ├── Resources/              # Unity runtime resources
 │   ├── Scenes/
 │   │   ├── MainMenu.unity      # Main menu
 │   │   └── SampleScene.unity   # Main game scene
 │   ├── Scripts/                # Game logic (see table below)
 │   │   └── Editor/             # Editor-only builder scripts
-│   ├── Broadcast/              # Models, textures, audio, etc.
-│   │   └── 24HC_Speakers/      # Anomaly resources and props
-│   ├── Character/              # Player character model & animations
-│   ├── Classroom/              # Classroom environment model & materials
-│   ├── Office Tile Kit/        # Office/corridor environment kit
 │   ├── SimpleSky/              # Skybox system
 │   └── TextMesh Pro/           # UI text rendering
 ├── Packages/
@@ -157,15 +158,15 @@ You do not need to manually edit the `anomalies` list — placing objects under 
 | **Classroom** | [爱给网](https://www.aigei.com/) | Classroom environment model (`classroom.fbx`) and all PBR materials/textures |
 | **frame (画框)** | [爱给网](https://www.aigei.com/) | Picture frame model (`frame.fbx`) used in the frame anomaly |
 | **bed (床)** | [爱给网](https://www.aigei.com/) | Bunk bed model at the end of the corridor |
-| **bin (垃圾桶)** | [爱给网](https://www.aigei.com/) | Trash bin prop |
-| **Speakers** | Broadcast / 24HC_Speakers | Speaker props (various materials and LODs) |
+| **Phone** | [爱给网](https://www.aigei.com/) | Smartphone and phone props (`Phone.fbx`, `smartPhone.fbx`) |
+| **backGround** | 网络 (Internet) | Background image for texture displays |
 
 ### Character
 
 | Asset | Source | Description |
 |-------|--------|-------------|
 | **keqing (刻晴) model** | [爱给网](https://www.aigei.com/) | Player character model with bone rigging |
-| **Character textures** | [爱给网](https://www.aigei.com/) | Face, hair, body, clothing, and shadow textures |
+| **Character textures** | [爱给网](https://www.aigei.com/) | Face (面), hair (发), body (肌), clothing (服), and shadow (阴影) textures |
 | **Standing Idle** | [Mixamo](https://www.mixamo.com/) | Idle animation |
 | **woman——Walking02** | [Mixamo](https://www.mixamo.com/) | Walking animation |
 
@@ -173,22 +174,22 @@ You do not need to manually edit the `anomalies` list — placing objects under 
 
 | Asset | Source | Description |
 |-------|--------|-------------|
-| **Chihaya (千早爱音) images** | 网络 (Internet) | Character images including `Chihaya Laugh.png` and `chihayaCry.png` |
+| **Chihaya (千早爱音) images** | 网络 (Internet) | Character images `Chihaya Laugh.png` (anomaly) and `chihayaCry.png` (normal) |
 | **Chihaya Laugh audio** | [爱给网](https://www.aigei.com/) | Laugh sound effect |
-| **Hachimi (cat meme) textures** | 网络 (Internet) | 6 meme-style images: `catcheff.png`, `catSpider.gif`, `catTrump.png`, `dogLoading.gif`, `Huh.jpg`, `Oh.jpg`, `rose.gif`, `stare.jpg`, `memes.jpg` |
-| **nailong (奶龙) images** | 网络 (Internet) | Character images `nailong.png` and `nailongNotLaugh.jpg` |
-| **nailong laugh audio** | [爱给网](https://www.aigei.com/) | Laugh sound effect |
-| **frame anomaly material** | 网络 (Internet) | Two alternative painting materials used as anomaly variants |
+| **nailong (奶龙) images** | 网络 (Internet) | Character images `nailong.png` (anomaly) and `nailongNotLaugh.jpg` (normal) |
+| **nailong laugh audio** | [爱给网](https://www.aigei.com/) | Laugh sound effect (`nailong.mp3`) |
+| **Cat meme textures** | 网络 (Internet) | Meme-style images: `catTrump.png`, `dogLoading.gif`, `Huh.jpg`, `Oh.jpg`, `rose.gif`, `smallcat.png`, `stare.jpg`, `yujie.png`, `yujiered.jpg` |
+| **frame anomaly material** | 网络 (Internet) | Alternative painting material used as anomaly variant |
 | **frame normal material** | 网络 (Internet) | Default painting material |
-| **cxk models** | [爱给网](https://www.aigei.com/) | Both normal (`cxk.fbx`) and anomaly (`basketball.fbx`) 3D models |
-| **Hachimi audio** | [爱给网](https://www.aigei.com/) | Associated sound effects (`hachimi.mp3`, `Northeast.mp3`) |
+| **cxk models** | [爱给网](https://www.aigei.com/) | Normal model (`cxk.fbx`) and anomaly model (`basketball.fbx`) with texture (`basketballTexture.jpg`) |
 
 ### Audio
 
 | Asset | Source | Description |
 |-------|--------|-------------|
-| **Footstep sounds** | [爱给网](https://www.aigei.com/) | Walking (`行走.mp3`) footstep audio |
-| **门外竖着** | [爱给网](https://www.aigei.com/) | Background / ambient audio |
+| **Footstep sounds** | [爱给网](https://www.aigei.com/) | Walking footstep audio (`行走.mp3`) |
+| **Chihaya Laugh** | [爱给网](https://www.aigei.com/) | Anomaly-triggered laugh sound effect |
+| **nailong Laugh** | [爱给网](https://www.aigei.com/) | Anomaly-triggered laugh sound effect (`nailong.mp3`) |
 
 ### UI & Framework
 
