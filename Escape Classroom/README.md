@@ -20,7 +20,6 @@ A wrong choice resets your progress back to Class 1. After completing all 5 clas
 | Action | Input |
 |--------|-------|
 | Move | `W` `A` `S` `D` |
-| Run | `Left Shift` |
 | Look around | Mouse movement |
 | Adjust camera distance | Mouse scroll wheel |
 | Interact with doors | `F` |
@@ -168,9 +167,7 @@ You do not need to manually edit the `anomalies` list — placing objects under 
 | **keqing (刻晴) model** | [爱给网](https://www.aigei.com/) | Player character model with bone rigging |
 | **Character textures** | [爱给网](https://www.aigei.com/) | Face, hair, body, clothing, and shadow textures |
 | **Standing Idle** | [Mixamo](https://www.mixamo.com/) | Idle animation |
-| **swagger_walk** | [Mixamo](https://www.mixamo.com/) | Walking animation |
-| **woman——Walking02** | [Mixamo](https://www.mixamo.com/) | Alternative walking animation |
-| **Run** | [Mixamo](https://www.mixamo.com/) | Running animation |
+| **woman——Walking02** | [Mixamo](https://www.mixamo.com/) | Walking animation |
 
 ### Anomaly Assets
 
@@ -190,7 +187,7 @@ You do not need to manually edit the `anomalies` list — placing objects under 
 
 | Asset | Source | Description |
 |-------|--------|-------------|
-| **Footstep sounds** | [爱给网](https://www.aigei.com/) | Walking (`行走.mp3`) and running (`奔跑.mp3`) footstep audio |
+| **Footstep sounds** | [爱给网](https://www.aigei.com/) | Walking (`行走.mp3`) footstep audio |
 | **门外竖着** | [爱给网](https://www.aigei.com/) | Background / ambient audio |
 
 ### UI & Framework

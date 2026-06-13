@@ -5,14 +5,8 @@ using UnityEngine;
 public class SimplePlayerMove : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public float runSpeed = 10f;
     public float rotationSpeed = 10f;
-    [Tooltip("动画步伐对应的设计速度，用于同步动画播放速率与实际移动速度")]
-    public float walkAnimSpeed = 5f;
     public AudioClip footstepClip;
-    public AudioClip runStepClip;
-    [Range(0.5f, 1f)]
-    public float runStepPitch = 0.8f;
 
     [HideInInspector] public Transform cameraTransform;
 
@@ -52,14 +46,11 @@ public class SimplePlayerMove : MonoBehaviour
 
         if (isMoving && cameraTransform != null)
         {
-            bool isRunning = Input.GetKey(KeyCode.LeftShift);
-            float currentSpeed = isRunning ? runSpeed : moveSpeed;
-
             Vector3 camForward = Vector3.Scale(cameraTransform.forward, new Vector3(1, 0, 1)).normalized;
             Vector3 camRight   = Vector3.Scale(cameraTransform.right,   new Vector3(1, 0, 1)).normalized;
             Vector3 moveDir    = (camForward * z + camRight * x).normalized;
 
-            Vector3 horizontalMove = moveDir * currentSpeed * Time.deltaTime;
+            Vector3 horizontalMove = moveDir * moveSpeed * Time.deltaTime;
             ApplyGravityAndMove(horizontalMove);
 
             transform.rotation = Quaternion.Slerp(
@@ -68,12 +59,9 @@ public class SimplePlayerMove : MonoBehaviour
                 rotationSpeed * Time.deltaTime
             );
 
-            // 用实际速度比例驱动动画播放速率，避免步伐与位移不同步
-            float speedRatio = currentSpeed / walkAnimSpeed;
-            animator.speed = speedRatio;
-
-            // 0 = Idle, 0.5 = Walk, 1 = Run
-            animator.SetFloat("Speed", isRunning ? 1f : 0.5f, 0.05f, Time.deltaTime);
+            // 0 = Idle, 0.5 = Walk
+            animator.speed = 1f;
+            animator.SetFloat("Speed", 0.5f, 0.05f, Time.deltaTime);
         }
         else
         {
@@ -85,14 +73,11 @@ public class SimplePlayerMove : MonoBehaviour
         // 行走时播放脚步声，静止时停止
         if (footstepClip != null)
         {
-            bool isRunning = isMoving && Input.GetKey(KeyCode.LeftShift);
-            AudioClip targetClip = (isRunning && runStepClip != null) ? runStepClip : footstepClip;
-
             if (isMoving)
             {
-                if (audioSource.clip != targetClip)
+                if (audioSource.clip != footstepClip)
                 {
-                    audioSource.clip = targetClip;
+                    audioSource.clip = footstepClip;
                     audioSource.Play();
                 }
                 else if (!audioSource.isPlaying)
@@ -103,7 +88,7 @@ public class SimplePlayerMove : MonoBehaviour
                 audioSource.Stop();
             }
 
-            audioSource.pitch = isRunning ? runStepPitch : 1f;
+            audioSource.pitch = 1f;
         }
     }
 
