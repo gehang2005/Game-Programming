@@ -1,6 +1,6 @@
-# Escape Classroom — What Did I Miss?
+# Escape Classroom 
 
-**What Did I Miss?** is an observation-based puzzle game inspired by *The Exit 8* and similar "endless classroom" experiences. Walk through a repeating classroom and corridor, spot anything out of place, and leave through the correct door. Clear 5 classes in a row to win.
+**Escape Classroom** is an observation-based puzzle game inspired by *The Exit 8* and similar "endless classroom" experiences. Walk through a repeating classroom and corridor, spot anything out of place, and leave through the correct door. Clear 5 classes in a row to win.
 
 ---
 
@@ -133,7 +133,6 @@ Escape Classroom/
 | `MenuButtonHover` | Button hover animation effects |
 | `GameEndTrigger` | Bed trigger after clearing all classes |
 | `GameClearScreen` | Ending UI fade-in and buttons |
-| `LaughTriggerForwarder` | Forwards proximity trigger events for laugh anomaly |
 
 ---
 
