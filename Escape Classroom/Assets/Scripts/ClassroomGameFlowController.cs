@@ -69,7 +69,11 @@ public class ClassroomGameFlowController : MonoBehaviour
             return;
 
         anomalyManager.HideAllAnomalies();
-        anomalyManager.GenerateRoundAnomaly();
+
+        // Class 1 is the tutorial round — always anomaly-free so the player can learn the normal classroom.
+        if (currentPeriod > 1)
+            anomalyManager.GenerateRoundAnomaly();
+
         UpdatePeriodText();
     }
 
@@ -77,12 +81,7 @@ public class ClassroomGameFlowController : MonoBehaviour
     {
         currentPeriod = 1;
         UpdatePeriodText();
-
-        if (anomalyManager != null)
-        {
-            anomalyManager.HideAllAnomalies();
-            anomalyManager.GenerateRoundAnomaly();
-        }
+        InitializeRound();
     }
 
     private void HandleGameClear()
@@ -110,6 +109,6 @@ public class ClassroomGameFlowController : MonoBehaviour
     private void UpdatePeriodText()
     {
         if (periodText != null)
-            periodText.text = "Class " + currentPeriod;
+            periodText.text = currentPeriod > targetPeriod ? "Class Over" : "Class " + currentPeriod;
     }
 }
