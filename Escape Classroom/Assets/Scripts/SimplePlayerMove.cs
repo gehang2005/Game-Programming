@@ -28,6 +28,10 @@ public class SimplePlayerMove : MonoBehaviour
         if (cameraTransform == null && Camera.main != null)
             cameraTransform = Camera.main.transform;
 
+        // 游戏开始后锁定并隐藏鼠标指针
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         // 禁用重力影响：检查自身及所有子对象上的 Rigidbody
         foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
         {
@@ -38,6 +42,13 @@ public class SimplePlayerMove : MonoBehaviour
 
     void Update()
     {
+        // Esc 释放鼠标（调试用）
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
