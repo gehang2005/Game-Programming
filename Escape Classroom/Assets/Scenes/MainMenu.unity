@@ -1266,7 +1266,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "At the start of each class, carefully observe the classroom\nto see if
+  m_text: "<color=#FFDD44>Class 1</color> is always normal — no anomaly. Use it to learn the room.
+
+At the start of each class, carefully observe the classroom\nto see if
     there is an <color=#FFDD44>anomaly</color>.\n\n  \u2022  Anomaly detected  \u2192 
     Leave through the <color=#FFDD44>BACK DOOR</color>\n  \u2022  No anomaly         
     \u2192  Leave through the <color=#FFDD44>FRONT DOOR</color>\n\nA <color=#FF4444>wrong</color>
