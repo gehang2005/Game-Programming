@@ -1271,8 +1271,7 @@ MonoBehaviour:
     Leave through the <color=#FFDD44>BACK DOOR</color>\n  \u2022  No anomaly         
     \u2192  Leave through the <color=#FFDD44>FRONT DOOR</color>\n\nA <color=#FF4444>wrong</color>
     choice resets your progress.\nPass <color=#FFDD44>5 classes</color> in a row
-    to win!\n\n<size=17><color=#888888>W / A / S / D   Move        Shift   Run       
-    Mouse   Look</color></size>"
+    to win!\n\n<size=17><color=#888888>W / A / S / D   Move        Mouse   Look</color></size>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
