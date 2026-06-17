@@ -1266,13 +1266,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "At the start of each class, carefully observe the classroom\nto see if
+  m_text: "<color=#FFDD44>Class 1</color> is always normal — no anomaly. Use it to learn the room.
+
+At the start of each class, carefully observe the classroom\nto see if
     there is an <color=#FFDD44>anomaly</color>.\n\n  \u2022  Anomaly detected  \u2192 
     Leave through the <color=#FFDD44>BACK DOOR</color>\n  \u2022  No anomaly         
     \u2192  Leave through the <color=#FFDD44>FRONT DOOR</color>\n\nA <color=#FF4444>wrong</color>
     choice resets your progress.\nPass <color=#FFDD44>5 classes</color> in a row
-    to win!\n\n<size=17><color=#888888>W / A / S / D   Move        Shift   Run       
-    Mouse   Look</color></size>"
+    to win!\n\n<size=17><color=#888888>W / A / S / D   Move        Mouse   Look</color></size>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
